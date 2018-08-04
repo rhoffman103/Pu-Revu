@@ -51,5 +51,21 @@ $(document).ready(function () {
     });
     //   ^^^Random Dad Joke^^^
 
+    // Weather
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?zip=03802,us&APPID=e2b14b405a6d72980c674b894caf0295&units=imperial"
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (results) {
+        console.log(results);
+        var weatherType = $("#weather-type");
+        var weatherTemp = $("#temp");
+        var windSpeed = $("#wind");
+        weatherType.append(results.weather[0].main + " / " + results.weather[1].main)
+        weatherTemp.append(results.main.temp + " ºF");
+        windSpeed.append(results.wind.speed + " mph");
+    });
+    // ^^^Weather^^^
+
 
 });//End of document.ready function
