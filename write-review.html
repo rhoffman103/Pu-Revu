@@ -4,43 +4,112 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Group 5 Project</title>
+        <title>Write Pu ReVu</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Reset CSS -->
         <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/reset.css" />
         <!-- Styles CSS -->
-        <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/styles.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/write-review.css" />
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
          <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <!-- Import Logo Font -->
+        <link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
 
     <body>
     
-    <div class="container">
-
-        <div class="row">
-            <div class="col m6 s12">
-                <form class="col s12">
-                    <div class="input-field col s12">
-                        <input id="business" value="" placeholder="Business Name">
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="z-input" value="" placeholder="zip">
-                    </div>
-                </form>
+        <div class="container">
+        
+            <h1 class="center-align font-caveat blue-text text-darken-2 bold mb-0">Pu ReVu</h1>
+        
+            <!-- BUSINESS & ZIP CODE -->
+            <div class="row mb-0">
+                <div class="col m6 s12">
+                    <form>
+                        <div class="input-field col s12 name-input">
+                            <input id="business" value="" placeholder="Business Name">
+                        </div>  
+                    </form>
+                </div>
             </div>
-            <div class="col s12">
-                <a class="waves-effect waves-light blue btn"><i class="material-icons left">cloud</i>submit</a>
+            <div class="row">
+                <div class="col s12">
+                    <!-- <p class "left" id="p-zip">Zip:
+                        <span id="display-zip"></span>
+                    </p> -->
+                    <form>
+                        <div class="input-field col s6">
+                            <input id="z-input" value="" placeholder="zip">
+                        </div>
+                    </form>
+                    <a class="waves-effect waves-light blue darken-2 btn right" id="change-zip">
+                        <i class="material-icons right">my_location</i>Change</a>
+                </div>
             </div>
+        
+            <!-- RATINGS -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <p class="blue-text text-darken-2 bold pb-10" id="recommend-pu" value="poo">Recommend Pu</p>
+                    <div class="mb-20">
+                        <div class="row">
+                            <ul>
+                                <li class="col s6">
+                                    <i class="material-icons thumb-rate">thumb_up</i>
+                                    <span class="black-text"> Glorious </span>
+                                </li>
+                                <li class="col s6">
+                                    <i class="material-icons thumb-rate">thumb_down</i>
+                                    <span class="black-text"> Crappy </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="blue-text text-darken-2 bold pb-10" id="pu-cleanliness" value="">Cleanliness</p>
+                    <div>
+                        <div class="row">
+                            <ul>
+                                <li class="col s4 thumb-rate">
+                                    <i class="material-icons">thumb_up</i>
+                                    <span class="black-text"> Clean </span>
+                                </li>
+                                <li class="col s4 thumb-rate">
+                                    <i class="material-icons">thumbs_up_down</i>
+                                    <span class="black-text"> Ok </span>
+                                </li>
+                                <li class="col s4 thumb-rate">
+                                    <i class="material-icons">thumb_down</i>
+                                    <span class="black-text"> Grimey </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- COMMENTS -->
+                <div class="row">
+                    <form class="input-field col s12">
+                        <textarea name="message" class="review-textarea comments" value="" placeholder="Write your review."></textarea>
+                    </form>
+                </div>
+        
+                <!-- SUBMIT & HOME PAGE BUTTONS -->
+                <div class="col s12 center-align">
+                    <a class="waves-effect waves-light blue darken-2 btn" id="submit-btn">
+                        <i class="material-icons right">publish</i>submit
+                    </a>
+                    <a class="waves-effect waves-light blue darken-2 btn" href="index.html">
+                        <i class="material-icons right">home</i>Home page
+                    </a>
+                </div>
+            </div>
+        
         </div>
-
-    </div>
-
+        
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -49,8 +118,9 @@
         <!-- Scripts -->
         <script src="assets/javascript/zip.js"></script>
         <script src="assets/javascript/scripts.js"></script>
-         <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        <script src="assets/javascript/reviews.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     </body>
 
 </html>
