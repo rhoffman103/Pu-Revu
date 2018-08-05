@@ -1,3 +1,22 @@
 .info {
     padding: 20px;
 }
+
+.font-caveat {
+    font-family: 'Caveat', 'cursive';
+}
+
+.nav-wrapper{
+    background-color: #414bb2;
+}
+
+
+.nav-wrapper ul li.active {
+    background-color:  #51acf2
+  }
+
+ nav .brand-logo{
+      color:  #51acf2;
+      font-size: 3rem;
+
+  }
