@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- Firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyB5w4kD4fczy7qVSDvoZLv8ks7UK3O8-ps",
+                authDomain: "poo-review-4f8c8.firebaseapp.com",
+                databaseURL: "https://poo-review-4f8c8.firebaseio.com",
+                projectId: "poo-review-4f8c8",
+                storageBucket: "",
+                messagingSenderId: "884187524701"
+            };
+            firebase.initializeApp(config);
+
+            var database = firebase.database();
+
+            sessionStorage.setItem("zip", "03833");
+
+            //  RETRIEVE BUSINESSES BY ZIP
+            var businessRef = database.ref("business");
+            businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
+            // console.log(snapshot.val());
+            var obj = snapshot.val();
+            Object.keys(obj).forEach(function(element) {
+                console.log(obj[element].name);
+                if (name === obj[element].name) {
+                    console.log("Business Match!")
+                }
+            })
+            
+            // console.log(snapshot.key);
+            });
+
+            //  GENERATE LIST OF COMMENTS SORTED BY ZIP AND BUSINESS
+            var businessRef = database.ref("business");
+            businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
+                // console.log(snapshot.val());
+                var obj = snapshot.val();
+                Object.keys(obj).forEach(function(element) {
+                    console.log(obj[element].name);
+                    if ("walmart" === obj[element].name) {
+                        console.log("Business Match!")
+                        obj[element].comments.forEach(function(element) {
+                            console.log(element);
+                        })
+                    }
+                })
+            });
+        });//End of document.ready function
+    </script>
+    
+</body>
+</html>
