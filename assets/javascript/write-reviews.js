@@ -95,10 +95,13 @@ $(document).ready(function(){
     // SUBMIT REVIEW
     $("#submit-btn").on("click", function() {
         zip = $("#z-input").val();
-        name = $("#business").val();
-        var commentField = $(".comments").val();
-        var comment = "";
+        name = $("#business").val().toLowerCase().trim();
+        var commentField = $(".comments").val().trim();
+        var comment = commentField;
         var recommended = false;
+
+        console.log(commentField.length);
+        console.log("string " + comment);
         
         //  MAKE A TIMESTAMP WITH MOMENT JS
         var dateAdded = "Need to make momentJS stamp";
@@ -107,15 +110,15 @@ $(document).ready(function(){
             recommended = true;
         }
 
-        if (commentField.length > 0) {
-            // comments.push($(".comments").val());
-            comment = $(".comments").val();
-        }
+        // if (commentField.length > 0) {
+        //     // comments.push($(".comments").val());
+        //     comment = $(".comments").val();
+        // }
 
         //  COMPARE ALL BUSINESSES TO BUSINESS INPUT
         var businessRef = database.ref("business");
         businessRef.once('value', function(snapshot) {
-            console.log(snapshot.val())
+            // console.log(snapshot.val())
             var businessLocationExists = false;
             snapshot.forEach(function(childSnapshot) {
                 var childKey = childSnapshot.key;
@@ -123,7 +126,7 @@ $(document).ready(function(){
                 // console.log(childKey);
                 // console.log(childData.name);
                 if ((name === childData.name) && (zip === childData.zip)) {
-                    var str = comments.toString();
+                    // var str = comments.toString();
                     // console.log(str);
                     businessLocationExists = true;
                     // console.log("Business Match!")
@@ -139,14 +142,9 @@ $(document).ready(function(){
                         ok:        ratings.ok + childData.ratings.ok,
                     });
                     if (commentField.length > 0) {
-                        var dataComments = childData.comments;
-                        console.log(comments)
-                        var comment = comments.toString()
-                        console.log(comment)
-                        console.log(dataComments)
+                        // var dataComments = childData.comments;
                         database.ref(`/business/${childKey}/comments`).push({
                             comment, dateAdded, recommended
-                            // comments: childData.comments.push(comments.toString())
                         });
                         console.log(comment)
                     }
