@@ -20,3 +20,24 @@
       font-size: 3rem;
 
   }
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .page-footer{
+    background-color: #414bb2;
+  }
+  .sidenav{
+    background-color: #414bb2;
+
+  }
+  .sidenav li{
+      background-color: white;
+  }
