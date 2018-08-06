@@ -51,9 +51,25 @@
 
 <main>
     <div class="container">
-
-        <div id="review-list"></div>
-
+    
+        <form>
+            Enter Zip:
+            <input class="zip-input" type="text" value="" placeholder="03801">
+            <br>
+            <button type="button">Click Me!</button>
+        </form>
+    
+        <div class="content">
+            <!-- Display business & total votes -->
+            <div class="title"></div>
+    
+            <!-- display comment cards -->
+            <div class="comment-cards"></div>
+    
+            <!-- display quick ratings per business -->
+            <div class="review-list"></div>
+        </div>
+    
     </div>
 </main>
 
@@ -73,7 +89,7 @@
     <!-- Scripts -->
     <script src="assets/javascript/zip.js"></script>
     <script src="assets/javascript/review-tests.js"></script>
-    <script src="assets/javascript/scripts.js"></script>
+    <script src="assets/javascript/read-reviews.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 </body>
