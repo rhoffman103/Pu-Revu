@@ -1,3 +1,43 @@
 .info {
     padding: 20px;
 }
+
+.font-caveat {
+    font-family: 'Caveat', 'cursive';
+}
+
+.nav-wrapper{
+    background-color: #414bb2;
+}
+
+
+.nav-wrapper ul li.active {
+    background-color:  #51acf2
+  }
+
+ nav .brand-logo{
+      color:  #51acf2;
+      font-size: 3rem;
+
+  }
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .page-footer{
+    background-color: #414bb2;
+  }
+  .sidenav{
+    background-color: #414bb2;
+
+  }
+  .sidenav li{
+      background-color: white;
+  }

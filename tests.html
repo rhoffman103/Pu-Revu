@@ -8,24 +8,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Reset CSS -->
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/reset.css" />
-    <!-- Styles CSS -->
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/styles.css" />
+    <!-- Import Logo Font -->
+    <link href="https://fonts.googleapis.com/css?family=Caveat" rel="stylesheet">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <!-- Styles CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/styles.css" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
+<nav>
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo font-caveat text-darken-2 bold mb-0">Pu ReVu</a>
+          <a href="#" data-target="side-pu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li ><a href="write-review.html">Write Review</a></li>
+            <li class="active"><a href="tests.html">Read Reviews<i class="material-icons left">library_books</i></a></li>
+            <li><a href="things-to-read.html">Reading Materials</a></li>
+            
+          </ul>
+        </div>
+      </nav>
+    
+      <ul class="sidenav" id="side-pu">
+            <div class="background">
+                    <img src="assets/images/smaller logo.png">
+                </div>
+            <li><a href="index.html"><i class="material-icons">home</i>Home</a></li>
+            <li><a href="write-review.html"><i class="material-icons">rate_review</i>Write Review</a></li>
+            <li><a href="tests.html"><i class="material-icons">library_books</i>Read Reviews</a></li>
+            <li><a href="things-to-read.html"><i class="material-icons">import_contacts</i>Reading Materials</a></li>
+      </ul>
+
 <body>
 
+
+
+<main>
     <div class="container">
 
         <div id="review-list"></div>
 
     </div>
+</main>
+
+<footer class="page-footer">
+        <div class="footer-copyright">
+          <div class="container  grey-text text-lighten-5 center">
+           Copyright © 2018
+          </div>
+        </div>
+      </footer>
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
