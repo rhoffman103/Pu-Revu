@@ -61,7 +61,12 @@ $(document).ready(function () {
         var weatherType = $("#weather-type");
         var weatherTemp = $("#temp");
         var windSpeed = $("#wind");
-        weatherType.append(results.weather[0].main + " / " + results.weather[1].main)
+        weatherType.append(results.weather[0].main);
+        if (results.weather[1]){
+            // this avoids a complete break if there's no alternate weather
+            
+            weatherType.append(" / " + results.weather[1].main);
+        }
         weatherTemp.append(results.main.temp + " ºF");
         windSpeed.append(results.wind.speed + " mph");
     });
