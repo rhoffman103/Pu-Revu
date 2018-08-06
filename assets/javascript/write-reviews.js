@@ -106,7 +106,7 @@ $(document).ready(function(){
         }
 
         //  MAKE A TIMESTAMP WITH MOMENT JS
-        var dateAdded = moment().subtract(10, 'days').calendar();
+        var dateAdded = moment().format('lll'); 
 
         //  COMPARE ALL BUSINESSES TO BUSINESS INPUT
         var businessRef = database.ref("business");
