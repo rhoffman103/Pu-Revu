@@ -96,24 +96,17 @@ $(document).ready(function(){
     $("#submit-btn").on("click", function() {
         zip = $("#z-input").val();
         name = $("#business").val().toLowerCase().trim();
-        var commentField = $(".comments").val().trim();
-        var comment = commentField;
+        var comment = $(".comments").val().trim();
         var recommended = false;
-
-        console.log(commentField.length);
-        console.log("string " + comment);
         
-        //  MAKE A TIMESTAMP WITH MOMENT JS
-        var dateAdded = "Need to make momentJS stamp";
+        sessionStorage.setItem("currentBusiness", name);
 
         if (ratings.recommend === 1) {
             recommended = true;
         }
 
-        // if (commentField.length > 0) {
-        //     // comments.push($(".comments").val());
-        //     comment = $(".comments").val();
-        // }
+        //  MAKE A TIMESTAMP WITH MOMENT JS
+        var dateAdded = moment().subtract(10, 'days').calendar();
 
         //  COMPARE ALL BUSINESSES TO BUSINESS INPUT
         var businessRef = database.ref("business");
@@ -141,14 +134,14 @@ $(document).ready(function(){
                         dirty:     ratings.dirty + childData.ratings.dirty,
                         ok:        ratings.ok + childData.ratings.ok,
                     });
-                    if (commentField.length > 0) {
+                    if (comment.length > 0) {
                         // var dataComments = childData.comments;
                         database.ref(`/business/${childKey}/comments`).push({
                             comment, dateAdded, recommended
                         });
                         console.log(comment)
                     }
-                    // if (commentField.length > 0) {
+                    // if (comment.length > 0) {
                     //     var dataComments = childData.comments;
                     //     console.log(comments)
                     //     var comment = comments.toString()

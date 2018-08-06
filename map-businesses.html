@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
     <!-- Firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
-    
+
     <script>
         $(document).ready(function(){
             // Initialize Firebase
@@ -28,38 +28,52 @@
 
             var database = firebase.database();
 
-            sessionStorage.setItem("zip", "03833");
+            sessionStorage.setItem("zip", "03801");
+            sessionStorage.setItem("currentBusiness", "granite state");
 
             //  RETRIEVE BUSINESSES BY ZIP
-            var businessRef = database.ref("business");
-            businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
-            // console.log(snapshot.val());
-            var obj = snapshot.val();
-            Object.keys(obj).forEach(function(element) {
-                console.log(obj[element].name);
-                if (name === obj[element].name) {
-                    console.log("Business Match!")
-                }
-            })
-            
-            // console.log(snapshot.key);
-            });
+            const listBusinesses = function(postal) {
+                var businessRef = database.ref("business");
+                businessRef.orderByChild("zip").equalTo(postal).once("value", function(snapshot) {
+                    // console.log(snapshot.val());
+                    var obj = snapshot.val();
+                    Object.keys(obj).forEach(function(element) {
+                        console.log(obj[element].name);
+                    })
+                    // console.log(snapshot.key);
+                });
+            }
 
-            //  GENERATE LIST OF COMMENTS SORTED BY ZIP AND BUSINESS
-            var businessRef = database.ref("business");
-            businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
-                // console.log(snapshot.val());
-                var obj = snapshot.val();
-                Object.keys(obj).forEach(function(element) {
-                    console.log(obj[element].name);
-                    if ("walmart" === obj[element].name) {
-                        console.log("Business Match!")
-                        obj[element].comments.forEach(function(element) {
-                            console.log(element);
-                        })
-                    }
-                })
-            });
+            //  RETRIEVE BUSINESSES BY ZIP AND DISPLAY COMMENTS
+            const displayComments = function(name, postal) {
+                var businessRef = database.ref("business");
+                businessRef.once('value', function (snapshot) {
+                    snapshot.forEach(function (childSnapshot) {
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+                        if ((name === childData.name) && (postal === childData.zip)) {
+                            console.log("Business Match!");
+                            var commentsRef = database.ref(`/business/${childKey}/comments`);
+                            commentsRef.once('value', function (snapshot) {
+                                console.log("Comments:")
+
+                                // MAKE COMMENT CARD IN THIS FOREACH LOOP
+                                // you can use commentData.recommend commentData.comment commentData.dateAdded
+                                snapshot.forEach(function (commentSnapshot) {
+                                    var commentKey = commentSnapshot.key
+                                    var commentData = commentSnapshot.val();
+                                    console.log("comment key: " + commentKey);
+                                    console.log(`recomend = ${commentData.recommended}\nDate Added: ${commentData.dateAdded}\nComment: ${commentData.comment}`)
+                                });
+                            });
+                        }
+                    });
+                });
+            } // End display comments
+
+            listBusinesses(sessionStorage.getItem("zip"));
+            displayComments(sessionStorage.getItem("currentBusiness"), sessionStorage.getItem("zip"))
+            
         });//End of document.ready function
     </script>
     
