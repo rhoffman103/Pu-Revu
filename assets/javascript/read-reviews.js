@@ -31,12 +31,14 @@ $(document).ready(function () {
     //  LIST BUSINESSES AND QUICK RATINGS
     const quickRatings = function (postal) {
         console.log("calling quick ratings")
+        console.log("zip input: " +postal);
         var businessRef = database.ref("business");
         businessRef.orderByChild("zip").equalTo(postal).once("value", function (snapshot) {
             // console.log(snapshot.val());
             var obj = snapshot.val();
             Object.keys(obj).forEach(function (element) {
-                console.log(obj[element].name);
+                console.log("FB business name: " +obj[element].name);
+                console.log("FB business zip: " + obj[element].zip);
                 var reviewDiv = $("<div>");
                 var header = $("<h3>");
                 header.addClass("business");
@@ -51,8 +53,6 @@ $(document).ready(function () {
                 reviewDiv.append(header);
                 reviewDiv.append(ratingThing);
                 $(".review-list").append(reviewDiv);
-                console.log(recommendPerc)
-                console.log(cleanPerc)
             })
             // console.log(snapshot.key);
         });
@@ -137,8 +137,10 @@ $(document).ready(function () {
     $("button").on("click", function() {
         console.log("zip search")
         sessionStorage.setItem("zip", $(".zip-input").val());
-        $(".content").empty();
-        quickRatings(sessionStorage.getItem("zip"));
+        $(".title").empty();
+        $(".comment-cards").empty();
+        $(".review-list").empty();
+        quickRatings($(".zip-input").val());
     })
 
 
