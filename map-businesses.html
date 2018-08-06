@@ -18,14 +18,21 @@
 
         <div class="container">
 
-            <!-- Display business & total votes -->
-            <div class="title"></div>
+            <form>
+                Enter Zip: <input class="zip-input" type="text" value="" placeholder="03801"><br>
+                <button type="button">Click Me!</button>
+            </form>
+                    
+            <div class="content">
+                <!-- Display business & total votes -->
+                <div class="title"></div>
 
-            <!-- display comment cards -->
-            <div class="comment-cards"></div>
-        
-            <!-- display quick ratings per business -->
-            <div class="review-list"></div>
+                <!-- display comment cards -->
+                <div class="comment-cards"></div>
+            
+                <!-- display quick ratings per business -->
+                <div class="review-list"></div>
+            </div>
 
         </div>
 
@@ -157,7 +164,6 @@
                     $(".review-list").hide();
 
                     ratingsRef.once("value", function(snap) {
-                        // snap.forEach(function (childSnap) {
                         ratings = snap.val();
                         console.log(ratings);
                         var titleDiv = $(`<h2 class="business-title">${$this.text().trim()}</h2>
@@ -172,11 +178,15 @@
 
                         $(".title").append(titleDiv);
                         displayComments($this.text().trim(), $this.attr("data-zip"))
-                        // })
                     })
-
-                    
                 });
+
+                $("button").on("click", function() {
+                    console.log("zip search")
+                    sessionStorage.setItem("zip", $(".zip-input").val());
+                    $(".content").empty();
+                    quickRatings(sessionStorage.getItem("zip"));
+                })
 
 
             });//End of document.ready function
