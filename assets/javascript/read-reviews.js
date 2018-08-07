@@ -15,6 +15,13 @@ $(document).ready(function () {
     sessionStorage.setItem("zip", "03801");
     sessionStorage.setItem("currentBusiness", "granite state");
 
+    // CAPITALIZE FIRST LETTER OF EACH WORD
+    const toTitleCase = (str) => {
+        return str.replace(/\w\S*/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    };
+
     //  RETRIEVE BUSINESSES BY ZIP
     const listBusinesses = function (postal) {
         var businessRef = database.ref("business");
@@ -39,19 +46,22 @@ $(document).ready(function () {
             Object.keys(obj).forEach(function (element) {
                 console.log("FB business name: " +obj[element].name);
                 console.log("FB business zip: " + obj[element].zip);
-                var reviewDiv = $("<div>");
-                var header = $("<h3>");
-                header.addClass("business");
-                header.attr("data-key", element);
-                header.attr("data-zip", obj[element].zip);
-
-                var ratingThing = $("<p>");
                 var recommendPerc = Math.round((obj[element].ratings.recommend / (obj[element].ratings.recommend + obj[element].ratings.oppose)) * 100);
                 var cleanPerc = Math.round((obj[element].ratings.clean / (obj[element].ratings.clean + obj[element].ratings.dirty)) * 100);
-                ratingThing.text('%' + recommendPerc + " Recommended | %" + cleanPerc + " Cleanliness");
-                header.text(obj[element].name);
-                reviewDiv.append(header);
-                reviewDiv.append(ratingThing);
+                var reviewDiv = $(`<div class="row">
+                                <div class="col s12 m6">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <span class="card-title">
+                                                <h3 class="business pointer-curser blue-text text-darken-2" data-zip="${obj[element].zip}" data-key="${element}">${toTitleCase(obj[element].name)}</h3>
+                                            </span>
+                                        </div>
+                                        <div class="card-action">
+                                            <p>% ${recommendPerc} Recommended | % ${cleanPerc} Cleanliness</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`)
                 $(".review-list").append(reviewDiv);
             })
             // console.log(snapshot.key);
@@ -65,7 +75,7 @@ $(document).ready(function () {
             snapshot.forEach(function (childSnapshot) {
                 var childKey = childSnapshot.key;
                 var childData = childSnapshot.val();
-                if ((name === childData.name) && (postal === childData.zip)) {
+                if ((name.toLowerCase() === childData.name) && (postal === childData.zip)) {
                     console.log("Business Match!");
                     var commentsRef = database.ref(`/business/${childKey}/comments`);
                     commentsRef.once('value', function (snapshot) {

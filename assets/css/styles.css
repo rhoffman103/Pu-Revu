@@ -66,6 +66,14 @@ main {
     text-decoration: underline;
 }
 
-.change-zip:hover {
+.pointer-curser:hover {
     cursor: pointer;
+}
+
+form {
+    margin-bottom: 15px;
+}
+
+.business {
+    text-decoration: underline;
 }
