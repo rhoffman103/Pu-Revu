@@ -13,31 +13,42 @@
 
 .nav-wrapper ul li.active {
     background-color:  #51acf2
-  }
+}
 
- nav .brand-logo{
-      color:  #51acf2;
-      font-size: 3rem;
+nav .brand-logo{
+    color:  #51acf2;
+    font-size: 3rem;
 
-  }
+}
 
-  body {
+body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
+}
 
-  main {
+main {
     flex: 1 0 auto;
-  }
+}
 
-  .page-footer{
+.page-footer{
     background-color: #414bb2;
-  }
-  .sidenav{
+}
+.sidenav{
     background-color: #414bb2;
 
-  }
-  .sidenav li{
-      background-color: white;
-  }
+}
+.sidenav li{
+    background-color: white;
+}
+
+.change-zip {
+    display: inline-block;
+    max-width: 120px;
+    margin-left: 20px;
+    text-decoration: underline;
+}
+
+.change-zip:hover {
+    cursor: pointer;
+}
