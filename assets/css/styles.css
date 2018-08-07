@@ -38,6 +38,10 @@ main{
       margin: 0;
   }
 
+  /* #index-img{
+      max-width: 300px;
+  } */
+
   body {
     display: flex;
     min-height: 100vh;
