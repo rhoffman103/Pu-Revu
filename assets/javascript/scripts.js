@@ -62,9 +62,9 @@ $(document).ready(function () {
         var weatherTemp = $("#temp");
         var windSpeed = $("#wind");
         weatherType.append(results.weather[0].main);
-        if (results.weather[1]){
+        if (results.weather[1]) {
             // this avoids a complete break if there's no alternate weather
-            
+
             weatherType.append(" / " + results.weather[1].main);
         }
         weatherTemp.append(results.main.temp + " ºF");

@@ -21,6 +21,14 @@
 
   }
 
+  .card-action{
+      border-bottom: 1px solid lightgray;
+  }
+
+  .row {
+      margin: 0;
+  }
+
   body {
     display: flex;
     min-height: 100vh;

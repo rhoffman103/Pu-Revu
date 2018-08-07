@@ -61,37 +61,6 @@ $(document).ready(function(){
         }
     })
 
-    // //  RETRIEVE BUSINESSES BY ZIP
-    // var businessRef = database.ref("business");
-    // businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
-    //     // console.log(snapshot.val());
-    //     var obj = snapshot.val();
-    //     Object.keys(obj).forEach(function(element) {
-    //         console.log(obj[element].name);
-    //         if (name === obj[element].name) {
-    //             console.log("Business Match!")
-    //         }
-    //     })
-        
-    //     // console.log(snapshot.key);
-    // });
-
-    // //  GENERATE LIST OF COMMENTS SORTED BY ZIP AND BUSINESS
-    // var businessRef = database.ref("business");
-    //     businessRef.orderByChild("zip").equalTo(sessionStorage.getItem("zip")).once("value", function(snapshot) {
-    //         // console.log(snapshot.val());
-    //         var obj = snapshot.val();
-    //         Object.keys(obj).forEach(function(element) {
-    //             console.log(obj[element].name);
-    //             if ("walmart" === obj[element].name) {
-    //                 console.log("Business Match!")
-    //                 obj[element].comments.forEach(function(element) {
-    //                     console.log(element);
-    //                 })
-    //             }
-    //         })
-    //     });
-
     // SUBMIT REVIEW
     $("#submit-btn").on("click", function() {
         zip = $("#z-input").val();
