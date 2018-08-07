@@ -77,3 +77,7 @@ form {
 .business {
     text-decoration: underline;
 }
+
+.thumb-rate {
+    text-shadow: 2px 2px 5px black;
+}
