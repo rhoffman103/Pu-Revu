@@ -6,6 +6,15 @@
     font-family: 'Caveat', 'cursive';
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+main{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .nav-wrapper{
     background-color: #414bb2;
 }
