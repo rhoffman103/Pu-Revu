@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyB5w4kD4fczy7qVSDvoZLv8ks7UK3O8-ps",
@@ -152,6 +153,7 @@ $(document).ready(function () {
         $(".review-list").empty();
         quickRatings($(".zip-input").val());
     })
-
+//Initialize sidebar
+$('.sidenav').sidenav();
 
 });//End of document.ready function
