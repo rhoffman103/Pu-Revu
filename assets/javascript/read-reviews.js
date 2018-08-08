@@ -63,6 +63,13 @@ $(document).ready(function () {
                                     </div>
                                 </div>
                             </div>`)
+                            
+                // Andrews cleanliness average fix with "ok" vote
+                // var cleanPerc = Math.round((obj[element].ratings.clean / (obj[element].ratings.clean + obj[element].ratings.dirty + obj[element].ratings.ok)) * 100);
+                // ratingThing.text('%' + recommendPerc + " Recommended | %" + cleanPerc + " Cleanliness");
+                // header.text(obj[element].name);
+                // reviewDiv.append(header);
+                // reviewDiv.append(ratingThing);
                 $(".review-list").append(reviewDiv);
             })
             // console.log(snapshot.key);
@@ -136,7 +143,7 @@ $(document).ready(function () {
                                 <span class="span-separater">Opposed: ${ratings.oppose}</span>
                             </p>
                             <p class="totals">Cleanliness: ${ratings.clean}
-                                <span class="span-separater">In Between: ${ratings.ok}</span>
+                                
                                 <span class="span-separater">Grimey: ${ratings.dirty}</span>
                             </p>`)
 

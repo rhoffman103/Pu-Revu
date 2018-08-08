@@ -24,9 +24,11 @@ $(document).ready(function(){
             ok:        0,
     }
 
+    var failedSubmitVisible = false;
+
     // FIXME
     // RETRIEVE ZIP & DISPLAY
-    // $("#display-zip").text(sessionStorage.getItem("zip"))
+    $("#display-zip").val(sessionStorage.getItem("zip"))
 
     $("li").on("click", function() {
         var $this = $(this);
@@ -73,12 +75,14 @@ $(document).ready(function(){
         if (ratings.recommend === 1) {
             recommended = true;
         }
-        if ((zip.length == 0) || (name.length == 0)) {
+        if (((zip.length == 0) || (name.length == 0)) && (!failedSubmitVisible)) {
+            // $(".failed-submit").show();
+            failedSubmitVisible = true;
             $("#failed-submit").append(`<div class="col s12 red lighten-3">
-                                            <p>You must enter a Business and Zip to submit a review</p>
+                                            <p class="submit-warning">!!! You must enter a Business and Zip to submit a review.</p>
                                         </div>`);
         }
-        else {
+        else if ((zip.length > 0) && (name.length > 0)){
 
             //  MAKE A TIMESTAMP WITH MOMENT JS
             var dateAdded = moment().format('lll'); 
