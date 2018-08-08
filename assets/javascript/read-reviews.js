@@ -45,7 +45,7 @@ $(document).ready(function () {
 
                 var ratingThing = $("<p>");
                 var recommendPerc = Math.round((obj[element].ratings.recommend / (obj[element].ratings.recommend + obj[element].ratings.oppose)) * 100);
-                var cleanPerc = Math.round((obj[element].ratings.clean / (obj[element].ratings.clean + obj[element].ratings.dirty)) * 100);
+                var cleanPerc = Math.round((obj[element].ratings.clean / (obj[element].ratings.clean + obj[element].ratings.dirty + obj[element].ratings.ok)) * 100);
                 ratingThing.text('%' + recommendPerc + " Recommended | %" + cleanPerc + " Cleanliness");
                 header.text(obj[element].name);
                 reviewDiv.append(header);
