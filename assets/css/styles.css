@@ -79,5 +79,5 @@ form {
 }
 
 .thumb-rate {
-    text-shadow: 2px 2px 5px purple;
+    text-shadow: 2px 2px 5px rgba(128, 0, 128, 0.5);
 }
