@@ -76,7 +76,6 @@ $(document).ready(function(){
             recommended = true;
         }
         if (((zip.length == 0) || (name.length == 0)) && (!failedSubmitVisible)) {
-            // $(".failed-submit").show();
             failedSubmitVisible = true;
             $("#failed-submit").append(`<div class="col s12 red lighten-3">
                                             <p class="submit-warning">!!! You must enter a Business and Zip to submit a review.</p>

@@ -86,3 +86,24 @@ form {
     font-size: large;
     padding: 12px 0 12px 0;
 }
+
+p {
+    font-size: large;
+}
+
+.separator {
+    border-bottom: 2px solid lightgrey;
+    margin-bottom: 15px;
+}
+
+.span-separater {
+    margin-left: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-8 {
+    margin-bottom: 8px;
+}

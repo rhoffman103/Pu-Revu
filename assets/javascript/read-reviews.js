@@ -105,7 +105,7 @@ $(document).ready(function () {
                             }
                             
                             $commentCard = $(`<div class="row">
-                                                <div class="col s12 m6">
+                                                <div class="col s12 l6">
                                                     <div class="card darken-1">
                                                         <div class="card-content">
                                                             <p class="date-added">${commentData.dateAdded}</p>
@@ -137,15 +137,16 @@ $(document).ready(function () {
         ratingsRef.once("value", function(snap) {
             ratings = snap.val();
             console.log(ratings);
-            var titleDiv = $(`<h2 class="business-title">${$this.text().trim()}</h2>
-                            <p>Zip Code: ${$this.attr("data-zip")}</p>
-                            <p class="totals">Recomends: ${ratings.recommend}
-                                <span class="span-separater">Opposed: ${ratings.oppose}</span>
-                            </p>
-                            <p class="totals">Cleanliness: ${ratings.clean}
-                                
-                                <span class="span-separater">Grimey: ${ratings.dirty}</span>
-                            </p>`)
+            var titleDiv = $(`<div class="separator">
+                                <h2 class="business-title">${$this.text().trim()}</h2>
+                                <p class="mb-20">Zip Code: ${$this.attr("data-zip")}</p>
+                                <p class="totals mb-8">Recomends: ${ratings.recommend}
+                                    <span class="span-separater">Opposed: ${ratings.oppose}</span>
+                                </p>
+                                <p class="totals mb-20">Cleanliness: ${ratings.clean}
+                                    <span class="span-separater">Grimey: ${ratings.dirty}</span>
+                                </p>
+                            </div>`)
 
             $(".title").append(titleDiv);
             displayComments($this.text().trim(), $this.attr("data-zip"))
