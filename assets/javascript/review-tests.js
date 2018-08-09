@@ -38,7 +38,7 @@ for (var i = 0; i < business.length; i++) {
     var ratingThing = $("<p>");
     var recommendPerc = Math.round((business[i].ratings.recommend / (business[i].ratings.recommend + business[i].ratings.oppose)) * 100);
     var cleanPerc = Math.round((business[i].ratings.clean / (business[i].ratings.clean + business[i].ratings.dirty)) * 100);
-    ratingThing.text('%' + recommendPerc + " Recommended | %" + cleanPerc + " Cleanliness");
+    ratingThing.html('%' + recommendPerc + " <i class='tiny material-icons'>thumbs_up_down</i> Recommended | %" + cleanPerc + " <i class='tiny material-icons'>grade</i> Cleanliness");
     header.text(business[i].name);
     reviewDiv.append(header);
     reviewDiv.append(ratingThing);

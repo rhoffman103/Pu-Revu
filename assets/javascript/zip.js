@@ -38,6 +38,8 @@ $(document).ready(function(){
 		}); // end ajax
 	};
 
+	$("#z-input").val(sessionStorage.getItem("zip"))
+
 	$("#change-zip").on("click", function() {
 		getLocation();
 		// $("#display-zip").text(postal)
