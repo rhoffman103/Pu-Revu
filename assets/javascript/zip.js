@@ -23,7 +23,7 @@ $(document).ready(function(){
 			},
 			success: function(data) {
 				var addresses = data.results; // cache results in a local var
-				// console.log(data.results);
+				console.log(data.results);
 				$.each(addresses, function(i){ // iterate through to find a postal code
 					if(this.types[0]=="postal_code"){ // check that the type is a postal code
 						postal = this['address_components'][0]['long_name']; // grab postal string
@@ -38,7 +38,7 @@ $(document).ready(function(){
 		}); // end ajax
 	};
 
-	$("#z-input").val(sessionStorage.getItem("zip"))
+	// $("#z-input").val(sessionStorage.getItem("zip"))
 
 	$("#change-zip").on("click", function() {
 		getLocation();
