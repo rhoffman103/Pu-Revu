@@ -1,6 +1,6 @@
 # Pu ReVu
 ## Project 1: Group 5
-[Live Link](https://andreweharding.github.io/Poo-Review/)
+[Live Link](https://andreweharding.github.io/Pu-Revu/)
 
 ### Team Members: 
 + Andrew H
