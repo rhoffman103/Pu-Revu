@@ -7,40 +7,45 @@ $(document).ready(function(){
     };
 
     const getRatings = function() {
-        const cleanliness = $(".cleanliness[data-select='checked']").attr('data-value');
-        const recommended = $(".recommend[data-select='checked']").attr('data-value');
-        const ratings  = {   
+        const selected = document.querySelectorAll(".rate-btn[data-select='checked']");
+
+        const newRatings  = {   
             recommend: 0,
             oppose:    0,
             clean:     0,
             dirty:     0,
             ok:        0,
         };
-
-        switch(cleanliness) {
-            case 'clean': 
-                ratings.clean = 1;
-                break;
-            case 'dirty':
-                ratings.dirty = 1;
-        };
-
-        switch(recommended) {
-            case 'recommend':
-                ratings.recommend = 1;
-                break;
-            case 'oppose':
-                ratings.oppose = 1;
-                break;
-        };
         
-        return ratings;
-    }
+        const setRatings = function(rating) {
+            switch(rating) {
+                case 'clean': 
+                    newRatings.clean = 1;
+                    break;
+                case 'dirty':
+                    newRatings.dirty = 1;
+                    break;
+                case 'recommend':
+                    newRatings.recommend = 1;
+                    break;
+                case 'oppose':
+                    newRatings.oppose = 1;
+                    break;
+            };
+        };
+                    
+        selected.forEach(function(element) {
+            if(element.hasAttribute('data-select', 'checked'))
+            setRatings(element.getAttribute('data-value'));
+        });
+
+        return newRatings;
+    };
 
     const swapRatingsAttributes = function($this) {
         $this.addClass("purple-text text-darken-2").attr('data-select', 'checked');
         $this.siblings().removeClass("purple-text text-darken-2").attr('data-select', 'unchecked');
-    }
+    };
 
     // EVENTS
     $(".pointer-curser").on("click", function() {

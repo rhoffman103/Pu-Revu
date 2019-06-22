@@ -1,16 +1,5 @@
 $(document).ready(function () {
 
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyB5w4kD4fczy7qVSDvoZLv8ks7UK3O8-ps",
-        authDomain: "poo-review-4f8c8.firebaseapp.com",
-        databaseURL: "https://poo-review-4f8c8.firebaseio.com",
-        projectId: "poo-review-4f8c8",
-        storageBucket: "",
-        messagingSenderId: "884187524701"
-    };
-    firebase.initializeApp(config);
-
     var database = firebase.database();
 
     sessionStorage.setItem("zip", "03801");
@@ -24,54 +13,16 @@ $(document).ready(function () {
     };
 
     //  RETRIEVE BUSINESSES BY ZIP
-    const listBusinesses = function (postal) {
-        var businessRef = database.ref("business");
+    const listBusinessesByZip = function (postal) {
+        var businessRef = database.ref("businesses");
         businessRef.orderByChild("zip").equalTo(postal).once("value", function (snapshot) {
-            var obj = snapshot.val();
-            Object.keys(obj).forEach(function (element) {
-                console.log(obj[element].name);
-            })
-            // console.log(snapshot.key);
-        });
-    }
-
-    //  LIST BUSINESSES AND QUICK RATINGS BY ZIP
-    const quickRatings = function (postal) {
-        console.log("calling quick ratings")
-        console.log("zip input: " +postal);
-        var businessRef = database.ref("business");
-        businessRef.orderByChild("zip").equalTo(postal).once("value", function (snapshot) {
-            var obj = snapshot.val();
-
             // check if there are any entries in this zip code & append info
-            if (snapshot.val() !== null) {
-                console.log("object keys: " + Object.keys(obj)[0])
-                Object.keys(obj).forEach(function (element) {
-                    var recommendPerc = Math.round((obj[element].ratings.recommend / (obj[element].ratings.recommend + obj[element].ratings.oppose)) * 100);
-                    var cleanPerc = Math.round((obj[element].ratings.clean / (obj[element].ratings.clean + obj[element].ratings.dirty)) * 100);
-                    var reviewDiv = $(`<div class="row">
-                                    <div class="col s12 m6">
-                                        <div class="card">
-                                            <div class="card-content">
-                                                <span class="card-title">
-                                                    <h3 class="business pointer-curser blue-text text-darken-2" data-zip="${obj[element].zip}" data-key="${element}">${toTitleCase(obj[element].name)}</h3>
-                                                </span>
-                                            </div>
-                                            <div class="card-action">
-                                                <p>% ${recommendPerc} Recommended | % ${cleanPerc} Cleanliness</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>`)
-                                
-                    $(".review-list").append(reviewDiv);
-                })
-            }
-            else {
-                $(".review-list").append(`<p>Be the first Pu Reviewer in this area!</p>`);
-            }
+            if (snapshot.val() !== null)
+            return updateDom.renderListOfBusinesses(snapshot.val(), toTitleCase)
+
+            $(".review-list").append(`<p>Be the first Pu Reviewer in this area!</p>`);
         });
-    }
+    };
     
     //  RETRIEVE BUSINESSES BY ZIP AND DISPLAY COMMENTS
     const displayComments = function (name, postal) {
@@ -143,21 +94,16 @@ $(document).ready(function () {
         $(".title").empty();
         $(".comment-cards").empty();
         $(".review-list").empty();
-        quickRatings($(".zip-input").val());
+        listBusinessesByZip($(".zip-input").val());
     }
-
-    //  Initialize sidebar
-    $('.sidenav').sidenav();
-
-    //  Display default for page opening
-    quickRatings(sessionStorage.getItem("zip"));
     
     // CLICK EVENTS
     // Opens clicked business and displays votes & comments
     $("body").on("click", ".business", function() {
         // console.log($(this).attr("data-zip"));
         var $this = $(this);
-        var ratingsRef = database.ref(`/business/${$this.attr("data-key")}/ratings`)
+        console.log('dbRef: ', `/businesses/${$this.attr("data-key")}/ratings`)
+        var ratingsRef = database.ref(`/businesses/${$this.attr("data-key")}/ratings`)
         $(".review-list").empty();
 
         ratingsRef.once("value", function(snap) {
@@ -180,4 +126,8 @@ $(document).ready(function () {
         }
     })
 
-});//End of document.ready function
+    // Initial Page load methods
+    $('.sidenav').sidenav();
+    listBusinessesByZip(sessionStorage.getItem("zip"));
+
+});
