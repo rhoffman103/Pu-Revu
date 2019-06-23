@@ -62,6 +62,46 @@ $(document).ready(function() {
             renderFirstPuReviewer: () => {
                 let p = $('<p>').text('Be the first Pu Reviewer in this area!')
                 $('.review-list').append(p);
+            },
+
+            renderTotalRatings: (business) => {
+                let row1 = $('<div>').addClass('row')
+                let row2 = $('<div>').addClass('row')
+                let divRatings = $('<div>').addClass('separator')
+                let businessH2 = $('<h2>').addClass('business-title').html(business.name)
+                let pZip = $('<p>').addClass('mb-20').html(`Zip Code: ${business.zip}`)
+                let pRecomends = $('<p>').addClass('col s12 m4 l3 mb-8 p-0').html(`Recomends: ${business.ratings.recommend}`)
+                let pOpposed = $('<p>').addClass('col s12 m4 l3 mb-8 p-0').html(`Opposed: ${business.ratings.oppose}`)
+                let pCleanliness = $('<p>').addClass('col s12 m4 l3 mb-8 p-0').html(`Cleanliness: ${business.ratings.clean}`)                
+                let pGrimey = $('<p>').addClass('col s12 m4 l3 mb-8 p-0').html(`Grimey: ${business.ratings.dirty}`)
+                
+                row1.append(pRecomends, pOpposed)
+                row2.append(pCleanliness, pGrimey)
+                divRatings.append(businessH2, pZip, row1, row2)
+                $('.title').append(divRatings)
+            },
+
+            listReviews: (reviews) => {
+                let reviewWrapper = $('<div>')
+                Object.keys(reviews).forEach((key) => {
+                    let thumb = 'thumb_up';
+                    let vote = 'Recommended';
+                    let row = $('<div>').addClass('row')
+                    let col = $('<div>').addClass('col s12 l6')
+                    let card = $('<div>').addClass('card darken-1')
+                    let cardContent = $('<div>').addClass('card-content')
+                    const dateAdded = $('<p>').addClass('date-added').html(reviews[key].dateAdded)
+                    const icon = $('<i>').addClass('material-icons').html(thumb)
+                    let pIcon = $('<p>').addClass('recommend-icon').html(icon[0].outerHTML + ' ' + vote)
+                    const comment = $('<p>').addClass('comment').html(reviews[key].comment)
+                    
+                    cardContent.append(dateAdded, pIcon, comment)
+                    card.append(cardContent)
+                    col.append(card)
+                    row.append(col)
+                    reviewWrapper.prepend(row);
+                })
+                $(".comment-cards").append(reviewWrapper);
             }
         };
         return updateDom;

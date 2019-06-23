@@ -107,3 +107,7 @@ p {
 .mb-8 {
     margin-bottom: 8px;
 }
+
+.p-0 {
+    padding: 0px !important;
+}
