@@ -111,3 +111,11 @@ p {
 .p-0 {
     padding: 0px !important;
 }
+
+.link {
+    text-decoration: underline;
+}
+
+.link:hover {
+    cursor: pointer;
+}

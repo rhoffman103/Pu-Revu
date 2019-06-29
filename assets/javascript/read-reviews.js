@@ -5,22 +5,15 @@ $(document).ready(function () {
     sessionStorage.setItem("zip", "03801");
     sessionStorage.setItem("currentBusiness", "granite state");
 
-    // CAPITALIZE FIRST LETTER OF EACH WORD
-    const toTitleCase = (str) => {
-        return str.replace(/\w\S*/g, function(txt){
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        });
-    };
-
     //  RETRIEVE BUSINESSES BY ZIP
     const listBusinessesByZip = function (postal) {
         var businessRef = database.ref("businesses");
         businessRef.orderByChild("zip").equalTo(postal).once("value", function (snapshot) {
             // check if there are any entries in this zip code & append info
             if (snapshot.val() !== null)
-            return updateDom.renderListOfBusinesses(snapshot.val(), toTitleCase)
+            return updateDom.renderListOfBusinesses(snapshot.val(), utils.toTitleCase)
 
-            $(".review-list").append(`<p>Be the first Pu Reviewer in this area!</p>`);
+            updateDom.renderFirstPuReviewer($(".review-list"));
         });
     };
 
@@ -44,7 +37,7 @@ $(document).ready(function () {
             const jSnap = snap.val();
             const reviews = jSnap.reviews;
             const business = {
-                name: jSnap.name,
+                name: utils.toTitleCase(jSnap.name),
                 zip: jSnap.zip,
                 ratings: jSnap.ratings
             };
@@ -65,6 +58,12 @@ $(document).ready(function () {
             enterSearch();
         };
     });
+
+    $(document).on('click', '#first-reviewer', function(event) {
+        event.preventDefault();
+        sessionStorage.setItem('zip', $(".zip-input").val());
+        window.location.href = '/write-review.html';
+    })
 
     // Initial Page load methods
     $('.sidenav').sidenav();

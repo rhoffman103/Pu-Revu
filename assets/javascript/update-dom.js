@@ -59,9 +59,12 @@ $(document).ready(function() {
                 $('.review-list').append(row);
             },
 
-            renderFirstPuReviewer: () => {
-                let p = $('<p>').text('Be the first Pu Reviewer in this area!')
-                $('.review-list').append(p);
+            renderFirstPuReviewer: (selector) => {
+                let p = $('<p>')
+                    .text('Be the first Pu Reviewer in this area!')
+                    .addClass('blue-text text-darken-2 link')
+                    .attr('id', 'first-reviewer')
+                selector.append(p);
             },
 
             renderTotalRatings: (business) => {
@@ -94,7 +97,7 @@ $(document).ready(function() {
                     const icon = $('<i>').addClass('material-icons').html(thumb)
                     let pIcon = $('<p>').addClass('recommend-icon').html(icon[0].outerHTML + ' ' + vote)
                     const comment = $('<p>').addClass('comment').html(reviews[key].comment)
-                    
+
                     cardContent.append(dateAdded, pIcon, comment)
                     card.append(cardContent)
                     col.append(card)

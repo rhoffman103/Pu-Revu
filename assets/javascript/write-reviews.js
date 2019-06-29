@@ -55,10 +55,11 @@ $(document).ready(function(){
 
     // SUBMIT REVIEW
     $("#submit-btn").on("click", function() {
-        zip = $("#z-input").val();
-        name = $("#business").val().toLowerCase().trim();
+        let zip = $("#z-input").val();
+        let name = utils.toTitleCase($("#business").val().toLowerCase().trim());
         const comment = $(".comments").val().trim();
-        var dateAdded = moment().format('lll'); 
+        const dateAdded = moment().format('lll'); 
+        
         sessionStorage.setItem("currentBusiness", name);
         
         if (( (zip.length == 0) || (name.length == 0) )) {
@@ -75,5 +76,6 @@ $(document).ready(function(){
     // INITIAL METHOD CALLS
     // Initialize Materialize JS
     M.AutoInit();
+    $('#z-input').val(sessionStorage.getItem('zip'))
     
 });
