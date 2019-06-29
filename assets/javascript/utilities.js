@@ -7,6 +7,11 @@ $(document).ready(function() {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                 });
             },
+
+            isZipCode: (str) => {
+                regexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+                return regexp.test(str)
+            }
         };
         return utils;
     };

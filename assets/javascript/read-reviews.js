@@ -19,12 +19,20 @@ $(document).ready(function () {
 
     //  Search Event for businesses
     const enterSearch = function() {
-        console.log("zip search")
-        sessionStorage.setItem("zip", $(".zip-input").val());
-        $(".title").empty();
-        $(".comment-cards").empty();
-        $(".review-list").empty();
-        listBusinessesByZip($(".zip-input").val());
+        const zip = $(".zip-input").val()
+        
+        if (utils.isZipCode(zip)) {
+            sessionStorage.setItem("zip", zip);
+            $(".title").empty();
+            $(".comment-cards").empty();
+            $(".review-list").empty();
+            listBusinessesByZip(zip);
+            return;
+        }
+        
+        const msg = 'Valid Zip Code Required!!!'
+        $('#warning').empty();
+        updateDom.warningMessage($('#warning'), msg);
     }
     
     // CLICK EVENTS
@@ -52,7 +60,12 @@ $(document).ready(function () {
         enterSearch();
     });
 
-    $(document).on("keypress", "#z-input", function(event) {
+    $('#z-input').on('input', function() {
+        if (utils.isZipCode($('#z-input').val()))
+            $('#warning').empty();
+    });
+
+    $('#z-input').on('keypress', function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
             enterSearch();

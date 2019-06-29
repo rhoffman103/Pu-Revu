@@ -16,6 +16,14 @@ $(document).ready(function() {
                 failedDiv.append(warning);
                 $("#failed-submit").append(failedDiv);
             },
+
+            warningMessage: (selector, msg) => {
+                const failedDiv = $('<div>').addClass('col s12 red lighten-3')
+                const warning = $('<p>').addClass('submit-warning').text(msg)
+                
+                failedDiv.append(warning);
+                selector.append(failedDiv);
+            },
             
             submitSuccess: () => {
                 const linkBtn = $('<a>')

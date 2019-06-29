@@ -29,6 +29,12 @@ $(document).ready(function() {
 
     function defineFBController() {
         const fbController = {
+            Review: function(comment, ratings, dateAdded) {
+                this.comment = comment;
+                this.ratings = ratings;
+                this.dateAdded = dateAdded;
+            },
+
             addNewBusiness: function({ name, zip, reviews, ratings }) {
                 return new Promise((resolve) => {
                     database.ref("/businesses").push({
