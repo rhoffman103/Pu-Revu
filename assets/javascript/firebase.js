@@ -89,24 +89,23 @@ $(document).ready(function() {
             pushNewReviewLogic: function(businessName, zip, review) {
                 fbController.findMatchingBusiness(businessName, zip)
                     .then((fbData) => {
-                        if (fbData) return fbController.addNewReview(review, fbData.key)
+                        if (fbData) return fbController.addNewReview(review, fbData.key);
                         const newBusiness = new Business (businessName, zip);
                         return fbController.addNewBusiness(newBusiness)
                     })
                     .then((fbData) => {
-                        if (fbData.businessKey && !fbData.reviewKey) return fbController.addNewReview(review, fbData.businessKey)
-                        return Promise.resolve(fbData)
+                        if (fbData.businessKey && !fbData.reviewKey)
+                            return fbController.addNewReview(review, fbData.businessKey);
+                        return Promise.resolve(fbData);
                     })
                     .then((fbData) => {
-                        if (fbData.businessKey && fbData.reviewKey) {
-                            console.log('fbData after new Review: ', fbData)
-                            return fbController.updateBusinessRatings(review, fbData.businessKey)
-                        }
+                        if (fbData.businessKey && fbData.reviewKey)
+                            return fbController.updateBusinessRatings(review, fbData.businessKey);
                     })
                     .then(() => updateDom.submitSuccess())
                     .catch((err) => {
-                        console.log(err);
-                        updateDom.failedSubmit();
+                        console.error(err);
+                        updateDom.warningMessage($('#failed-submit'), 'Oops! Something when wrong!');
                     })
             }
         };
