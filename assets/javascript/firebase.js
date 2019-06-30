@@ -91,7 +91,7 @@ $(document).ready(function() {
                     .then((fbData) => {
                         if (fbData) return fbController.addNewReview(review, fbData.key);
                         const newBusiness = new Business (businessName, zip);
-                        return fbController.addNewBusiness(newBusiness)
+                        return fbController.addNewBusiness(newBusiness);
                     })
                     .then((fbData) => {
                         if (fbData.businessKey && !fbData.reviewKey)
@@ -106,7 +106,7 @@ $(document).ready(function() {
                     .catch((err) => {
                         console.error(err);
                         updateDom.warningMessage($('#failed-submit'), 'Oops! Something when wrong!');
-                    })
+                    });
             }
         };
         return fbController;
