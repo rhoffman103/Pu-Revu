@@ -86,6 +86,18 @@ $(document).ready(function() {
                 })  
             },
 
+            getBusinessesByZip: function(zip) {
+                return new Promise((resolve, reject) => {
+                    database.ref("businesses").orderByChild("zip")
+                    .equalTo(zip).once("value")
+                    .then((snapshot) => {
+                        if (snapshot.val() !== null)
+                            resolve(snapshot.val());
+                    })
+                    .catch((err) => reject(err))
+                });
+            },
+
             pushNewReviewLogic: function(businessName, zip, review) {
                 fbController.findMatchingBusiness(businessName, zip)
                     .then((fbData) => {

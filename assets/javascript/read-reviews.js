@@ -1,24 +1,34 @@
 $(document).ready(function () {
 
-    var database = firebase.database();
+    const database = firebase.database();
+    
+    const initialLoadSearch = () => {
+        const zip = utils.getZipCodeFromWebStorage();
+        
+        if ((zip !== null) && (zip !== undefined))
+            return listBusinessesByZip(sessionStorage.getItem("zip"));
+        
+        // Default to Portsmouth NH
+        if (zip !== undefined)
+            sessionStorage.setItem("zip", "03801");
+        
+        listBusinessesByZip('03801');
+    };
 
-    sessionStorage.setItem("zip", "03801");
-    sessionStorage.setItem("currentBusiness", "granite state");
-
-    //  RETRIEVE BUSINESSES BY ZIP
-    const listBusinessesByZip = function (postal) {
-        var businessRef = database.ref("businesses");
-        businessRef.orderByChild("zip").equalTo(postal).once("value", function (snapshot) {
-            // check if there are any entries in this zip code & append info
-            if (snapshot.val() !== null)
-            return updateDom.renderListOfBusinesses(snapshot.val(), utils.toTitleCase)
-
+    const listBusinessesByZip = function (zip) {
+        fbController.getBusinessesByZip(zip)
+        .then((fbData) => {
+            if (fbData !== null)
+                return updateDom.renderListOfBusinesses(fbData, utils.toTitleCase)
             updateDom.renderFirstPuReviewer($(".review-list"));
+        })
+        .catch((err) => {
+            console.error(err);
+            updateDom.warningMessage($('#warning'), 'Oops! Something went wrong!');
         });
     };
 
-    //  Search Event for businesses
-    const enterSearch = function() {
+    const searchByZip = function() {
         const zip = $(".zip-input").val()
         
         if (utils.isZipCode(zip)) {
@@ -34,13 +44,11 @@ $(document).ready(function () {
         $('#warning').empty();
         updateDom.warningMessage($('#warning'), msg);
     }
-    
-    // CLICK EVENTS
-    // Opens clicked business and displays votes & comments
-    $("body").on("click", ".business", function() {
-        var ratingsRef = database.ref(`/businesses/${$(this).attr("data-key")}`)
-        $(".review-list").empty();
 
+    const openSelectedBusiness = ($this) => {
+        var ratingsRef = database.ref(`/businesses/${$this.attr("data-key")}`)
+        $(".review-list").empty();
+    
         ratingsRef.once("value", function(snap) {
             const jSnap = snap.val();
             const reviews = jSnap.reviews;
@@ -49,15 +57,19 @@ $(document).ready(function () {
                 zip: jSnap.zip,
                 ratings: jSnap.ratings
             };
-
+    
             updateDom.renderTotalRatings(business)
             updateDom.listReviews(reviews)
         });
+    }
+    
+    // CLICK EVENTS
+    $("body").on("click", ".business", function() {
+        openSelectedBusiness($(this));
     });
 
-    // Searches for businesses by zip
     $("button").on("click", function() {
-        enterSearch();
+        searchByZip();
     });
 
     $('#z-input').on('input', function() {
@@ -68,7 +80,7 @@ $(document).ready(function () {
     $('#z-input').on('keypress', function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
-            enterSearch();
+            searchByZip();
         };
     });
 
@@ -80,6 +92,6 @@ $(document).ready(function () {
 
     // Initial Page load methods
     $('.sidenav').sidenav();
-    listBusinessesByZip(sessionStorage.getItem("zip"));
+    initialLoadSearch();
 
 });

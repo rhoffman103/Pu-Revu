@@ -11,6 +11,12 @@ $(document).ready(function() {
             isZipCode: (str) => {
                 regexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
                 return regexp.test(str)
+            },
+
+            getZipCodeFromWebStorage: () => {
+                if (typeof(Storage) !== 'undefined')
+                    return sessionStorage.getItem('zip');
+                return undefined;
             }
         };
         return utils;
