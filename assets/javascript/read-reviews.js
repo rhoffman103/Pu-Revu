@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-    const database = firebase.database();
     
     const initialLoadSearch = () => {
         const zip = utils.getZipCodeFromWebStorage();
@@ -45,27 +43,22 @@ $(document).ready(function () {
         updateDom.warningMessage($('#warning'), msg);
     }
 
-    const openSelectedBusiness = ($this) => {
-        var ratingsRef = database.ref(`/businesses/${$this.attr("data-key")}`)
-        $(".review-list").empty();
-    
-        ratingsRef.once("value", function(snap) {
-            const jSnap = snap.val();
-            const reviews = jSnap.reviews;
-            const business = {
-                name: utils.toTitleCase(jSnap.name),
-                zip: jSnap.zip,
-                ratings: jSnap.ratings
-            };
-    
-            updateDom.renderTotalRatings(business)
-            updateDom.listReviews(reviews)
-        });
+    const openSelectedBusiness = (key) => {
+        fbController.getBusinessByKey(key)
+            .then((fbData) => {
+                $(".review-list").empty();
+                updateDom.renderTotalRatings(fbData.business)
+                updateDom.listReviews(fbData.reviews)
+            })
+            .catch((err) => {
+                console.error('Error retrieving business by key: ', err);
+                updateDom.warningMessage($('#warning'), 'Oops! Something went wrong!');
+            });
     }
     
     // CLICK EVENTS
     $("body").on("click", ".business", function() {
-        openSelectedBusiness($(this));
+        openSelectedBusiness($(this).attr('data-key'));
     });
 
     $("button").on("click", function() {

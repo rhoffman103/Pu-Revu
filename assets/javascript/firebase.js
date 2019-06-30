@@ -98,6 +98,24 @@ $(document).ready(function() {
                 });
             },
 
+            getBusinessByKey: function(key) {
+                return new Promise((resolve, reject) => {
+                    database.ref(`/businesses/${key}`).once("value")
+                        .then((snap) => {
+                            const jSnap = snap.val();
+                            const reviews = jSnap.reviews;
+                            const business = {
+                                name: utils.toTitleCase(jSnap.name),
+                                zip: jSnap.zip,
+                                ratings: jSnap.ratings
+                            };
+                    
+                            resolve({ business, reviews });
+                        })
+                        .catch((err) => reject(err));
+                });
+            },
+
             pushNewReviewLogic: function(businessName, zip, review) {
                 fbController.findMatchingBusiness(businessName, zip)
                     .then((fbData) => {
