@@ -1,22 +1,6 @@
 $(document).ready(function() {
     function defineUpdateDom() {
         const updateDom = {
-            missingCredentials: () => {
-                const failedDiv = $('<div>').addClass('col s12 red lighten-3')
-                const warning = $('<p>').addClass('submit-warning').text('!!! You must enter a Business and Zip to submit a review.')
-                
-                failedDiv.append(warning);
-                $("#failed-submit").append(failedDiv);
-            },
-            
-            failedSubmit: () => {
-                const failedDiv = $('<div>').addClass('col s12 red lighten-3')
-                const warning = $('<p>').addClass('submit-warning').text('Oops! Something went wrong!')
-                
-                failedDiv.append(warning);
-                $("#failed-submit").append(failedDiv);
-            },
-
             warningMessage: (selector, msg) => {
                 const failedDiv = $('<div>').addClass('col s12 red lighten-3')
                 const warning = $('<p>').addClass('submit-warning').text(msg)
@@ -95,8 +79,17 @@ $(document).ready(function() {
             listReviews: (reviews) => {
                 let reviewWrapper = $('<div>')
                 Object.keys(reviews).forEach((key) => {
-                    let thumb = 'thumb_up';
-                    let vote = 'Recommended';
+                    let thumb;
+                    let vote;
+
+                    if (reviews[key].ratings.recommend) {
+                        thumb = 'thumb_up';
+                        vote = 'Recommended';
+                    } else {
+                        thumb = 'thumb_down';
+                        vote = 'Opposed';
+                    }
+
                     let row = $('<div>').addClass('row')
                     let col = $('<div>').addClass('col s12 l6')
                     let card = $('<div>').addClass('card darken-1')
