@@ -90,10 +90,7 @@ $(document).ready(function() {
                 return new Promise((resolve, reject) => {
                     database.ref("businesses").orderByChild("zip")
                     .equalTo(zip).once("value")
-                    .then((snapshot) => {
-                        if (snapshot.val() !== null)
-                            resolve(snapshot.val());
-                    })
+                    .then((snapshot) => resolve(snapshot.val()))
                     .catch((err) => reject(err))
                 });
             },
@@ -117,26 +114,27 @@ $(document).ready(function() {
             },
 
             pushNewReviewLogic: function(businessName, zip, review) {
-                fbController.findMatchingBusiness(businessName, zip)
-                    .then((fbData) => {
-                        if (fbData) return fbController.addNewReview(review, fbData.key);
-                        const newBusiness = new Business (businessName, zip);
-                        return fbController.addNewBusiness(newBusiness);
-                    })
-                    .then((fbData) => {
-                        if (fbData.businessKey && !fbData.reviewKey)
-                            return fbController.addNewReview(review, fbData.businessKey);
-                        return Promise.resolve(fbData);
-                    })
-                    .then((fbData) => {
-                        if (fbData.businessKey && fbData.reviewKey)
-                            return fbController.updateBusinessRatings(review, fbData.businessKey);
-                    })
-                    .then(() => updateDom.submitSuccess())
-                    .catch((err) => {
-                        console.error(err);
-                        updateDom.warningMessage($('#failed-submit'), 'Oops! Something when wrong!');
-                    });
+                return new Promise((resolve, reject) => {
+                    fbController.findMatchingBusiness(businessName, zip)
+                        .then((fbData) => {
+                            if (fbData) return fbController.addNewReview(review, fbData.key);
+                            const newBusiness = new Business (businessName, zip);
+                            return fbController.addNewBusiness(newBusiness);
+                        })
+                        .then((fbData) => {
+                            if (fbData.businessKey && !fbData.reviewKey)
+                                return fbController.addNewReview(review, fbData.businessKey);
+                            return Promise.resolve(fbData);
+                        })
+                        .then((fbData) => {
+                            if (fbData.businessKey && fbData.reviewKey)
+                                return fbController.updateBusinessRatings(review, fbData.businessKey);
+                        })
+                        .then(() => resolve())
+                        .catch((err) => {
+                            reject(err);
+                        });
+                });
             }
         };
         return fbController;
