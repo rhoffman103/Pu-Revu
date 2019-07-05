@@ -47,8 +47,8 @@ $(document).ready(function () {
         fbController.getBusinessByKey(key)
             .then((fbData) => {
                 $(".review-list").empty();
-                updateDom.renderTotalRatings(fbData.business)
-                updateDom.listReviews(fbData.reviews)
+                updateDom.renderTotalRatings('.title', fbData.business)
+                updateDom.listReviews('.comment-cards', fbData.reviews)
             })
             .catch((err) => {
                 console.error('Error retrieving business by key: ', err);

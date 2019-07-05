@@ -59,7 +59,7 @@ $(document).ready(function() {
                 selector.append(p);
             },
 
-            renderTotalRatings: (business) => {
+            renderTotalRatings: (selector, business) => {
                 let row1 = $('<div>').addClass('row')
                 let row2 = $('<div>').addClass('row')
                 let divRatings = $('<div>').addClass('separator')
@@ -73,10 +73,10 @@ $(document).ready(function() {
                 row1.append(pRecomends, pOpposed)
                 row2.append(pCleanliness, pGrimey)
                 divRatings.append(businessH2, pZip, row1, row2)
-                $('.title').append(divRatings)
+                $(selector).append(divRatings)
             },
 
-            listReviews: (reviews) => {
+            listReviews: (selector, reviews) => {
                 let reviewWrapper = $('<div>')
                 Object.keys(reviews).forEach((key) => {
                     let thumb;
@@ -105,7 +105,7 @@ $(document).ready(function() {
                     row.append(col)
                     reviewWrapper.prepend(row);
                 })
-                $(".comment-cards").append(reviewWrapper);
+                $(selector).append(reviewWrapper);
             }
         };
         return updateDom;
