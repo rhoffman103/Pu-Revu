@@ -1,5 +1,7 @@
 # Pu ReVu
-## Project 1: Group 5
+
+> This is a reboot of the first project from the UNH Coding Bootcamp. I have been reorganizing and improving the javascript code from the original submission.
+
 [Live Link](https://rhoffman103.github.io/Pu-Revu/)
 
 ### Team Members: 
