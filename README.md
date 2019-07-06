@@ -1,6 +1,6 @@
 # Pu ReVu
 
-> This is a reboot of the first project from the UNH Coding Bootcamp. I have been reorganizing and improving the javascript code from the original submission.
+> This is a reboot of the first project from the UNH Coding Bootcamp. I have been reorganizing and improving the javascript code from the original submission. The goal is to refactor into reusable methods and create maintainable code for future updates and/or expansion.
 
 [Live Link](https://rhoffman103.github.io/Pu-Revu/)
 
@@ -180,3 +180,84 @@ businesses: {
     }
 }
 ```
+
+### fbController.Review()
+
+The ```Review()``` constructor has 3 properties. comment: string; ratings: object; dateAdded: string;
+
+**Syntax**
+
+> ```fbController.Review(```*```string, object, string```*```)```
+
+### fbController.addNewBusiness()
+
+The ```addNewBusiness()``` method pushes a new business into the ```businesses``` child in the db. It returns a promise and an object with a corresponing ```{ businessKey }``` from the db push (if successful).
+
+**Syntax**
+
+> ```fbController.addNewBusiness(```*```object```*```)```
+
+The one argument is an instance from the business constructor.
+Reviews should be empty as they need to be *pushed* into the db to generate unique keys.
+
+### fbController.addNewReview()
+
+The ```addNewReview()``` method pushes a new review into a corresponding business. It returns a promise  with an object containing ```{ reviewKey, businessKey }``` if successful.
+
+**Syntax**
+
+> ```fbController.addNewReview(```*```object, string```*```)```
+
+The first argument is a review instance. The second is a string containing the reviews corresponding business key.
+
+### fbController.updateBusinessRatings()
+
+The ```updateBusinessRatings()``` method updates a businesses overall ratings from a users individual review. 
+
+**Syntax**
+
+> ```fbController.updateBusinessRatings(```*```object, string```*```)```
+
+The first argument is a review object, the second is a string containing the businessKey.
+
+### fbController.findMatchingBusiness()
+
+The ```findMatchingBusiness()``` method looks for a business with a matching name and zip in the db. If found, an object containing the business info will be returned. Else ```null``` will be returned.
+
+**Syntax**
+
+> ```fbController.findMatchingBusiness(```*```string, string```*```)```
+
+The first argument is the business name. second is the zip code.
+
+### fbController.getBusinessByZip()
+
+The ```getBusinessByZip()``` method returns all businesses with a given zip.
+
+**Syntax**
+
+> ```fbController.getBusinessByZip(```*```string```*```)```
+
+The only argument is a string containing the zip code.
+
+### fbController.getBusinessByKey()
+
+The ```getBusinessByKey()``` method returns an object with the business and its reviews as the 2 properties.
+
+**Syntax**
+
+> ```fbController.getBusinessByKey(```*```string```*```)```
+
+The only argument is a string containing the child key from the db.
+
+### fbController.pushNewReviewLogic()
+
+The ```pushNewReviewLogic()``` method submits a new review or business when a user submits their review.
+
+It looks for a matching business to attach the review, If one doesn't exist, It will submit a new business, then submit the new review, then update the business's overall ratings.
+
+**Syntax**
+
+> ```fbController.pushNewReviewLogic(```*```string, string, object```*```)```
+
+First argument is the business name, second is the zip code, third is the review object.
