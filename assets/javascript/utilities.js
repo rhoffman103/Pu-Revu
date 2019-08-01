@@ -9,8 +9,8 @@ $(document).ready(function() {
             },
 
             isZipCode: (str) => {
-                regexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
-                return regexp.test(str)
+                const regexp = /^[0-9]{5}(?:-[0-9]{4})?$/;
+                return regexp.test(str);
             },
 
             getZipCodeFromWebStorage: () => {
