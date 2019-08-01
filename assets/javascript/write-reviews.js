@@ -46,7 +46,6 @@ $(document).ready(function(){
         const name = utils.toTitleCase($("#business").val().toLowerCase().trim());
         
         if ( (utils.isZipCode(zip)) && (name.length > 0) ) {
-            console.log('adding new business')
             const ratings = getRatings();
             const comment = $(".comments").val().trim();
             const dateAdded = moment().format('lll'); 
