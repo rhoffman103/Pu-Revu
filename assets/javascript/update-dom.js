@@ -6,7 +6,7 @@ $(document).ready(function() {
                 const warning = $('<p>').addClass('submit-warning').text(msg)
                 
                 failedDiv.append(warning);
-                selector.append(failedDiv);
+                $(selector).append(failedDiv);
             },
             
             submitSuccess: () => {

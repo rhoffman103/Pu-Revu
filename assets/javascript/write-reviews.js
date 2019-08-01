@@ -56,13 +56,13 @@ $(document).ready(function(){
                 .then(() => updateDom.submitSuccess())
                 .catch((err) => {
                     console.error(err);
-                    updateDom.warningMessage($('#failed-submit'), 'Oops! Something when wrong!');
+                    updateDom.warningMessage('#failed-submit', 'Oops! Something when wrong!');
                 });         
             return;
         }
 
         const msg = '!!! You must enter a Business and Zip to submit a review !!!';
-        updateDom.warningMessage($("#failed-submit"), msg);
+        updateDom.warningMessage("#failed-submit", msg);
     };
 
     // EVENTS

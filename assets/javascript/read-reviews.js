@@ -22,7 +22,7 @@ $(document).ready(function () {
         })
         .catch((err) => {
             console.error(err);
-            updateDom.warningMessage($('#warning'), 'Oops! Something went wrong!');
+            updateDom.warningMessage('#warning', 'Oops! Something went wrong!');
         });
     };
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
         
         const msg = 'Valid Zip Code Required!!!'
         $('#warning').empty();
-        updateDom.warningMessage($('#warning'), msg);
+        updateDom.warningMessage('#warning', msg);
     }
 
     const openSelectedBusiness = (key) => {
@@ -52,7 +52,7 @@ $(document).ready(function () {
             })
             .catch((err) => {
                 console.error('Error retrieving business by key: ', err);
-                updateDom.warningMessage($('#warning'), 'Oops! Something went wrong!');
+                updateDom.warningMessage('#warning', 'Oops! Something went wrong!');
             });
     }
     
