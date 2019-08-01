@@ -45,7 +45,7 @@ $(document).ready(function(){
         const zip = $("#z-input").val();
         const name = utils.toTitleCase($("#business").val().toLowerCase().trim());
         
-        if ( (utils.isZipCode(zip)) || (name.length > 0) ) {
+        if ( (utils.isZipCode(zip)) && (name.length > 0) ) {
             const ratings = getRatings();
             const comment = $(".comments").val().trim();
             const dateAdded = moment().format('lll'); 
@@ -56,13 +56,15 @@ $(document).ready(function(){
                 .then(() => updateDom.submitSuccess())
                 .catch((err) => {
                     console.error(err);
-                    updateDom.warningMessage($('#failed-submit'), 'Oops! Something when wrong!');
+                    $('#failed-submit').empty();
+                    updateDom.warningMessage('#failed-submit', 'Oops! Something when wrong!');
                 });         
             return;
         }
 
+        $('#failed-submit').empty();
         const msg = '!!! You must enter a Business and Zip to submit a review !!!';
-        updateDom.warningMessage($("#failed-submit"), msg);
+        updateDom.warningMessage("#failed-submit", msg);
     };
 
     // EVENTS
@@ -76,8 +78,6 @@ $(document).ready(function(){
     });
 
     // INITIAL METHOD CALLS
-    // Initialize Materialize JS
-    M.AutoInit();
     $('#z-input').val(sessionStorage.getItem('zip'))
     
 });

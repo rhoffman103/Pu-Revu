@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    // Initialize Materialize JS
-    M.AutoInit();
 
     // Top Three Most Popular Daily Articles
     $(document).on("change", "#topic-select", function () {
