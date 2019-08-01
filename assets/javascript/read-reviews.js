@@ -48,7 +48,7 @@ $(document).ready(function () {
             .then((fbData) => {
                 $(".review-list").empty();
                 updateDom.renderTotalRatings('.title', fbData.business)
-                updateDom.listReviews('.comment-cards', fbData.reviews)
+                if (fbData.reviews) updateDom.listReviews('.comment-cards', fbData.reviews)
             })
             .catch((err) => {
                 console.error('Error retrieving business by key: ', err);
