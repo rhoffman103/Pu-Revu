@@ -119,3 +119,7 @@ p {
 .link:hover {
     cursor: pointer;
 }
+
+.d-inline-block {
+    display: inline-block;
+}

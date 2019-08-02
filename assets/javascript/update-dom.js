@@ -106,6 +106,13 @@ $(document).ready(function() {
                     reviewWrapper.prepend(row);
                 })
                 $(selector).append(reviewWrapper);
+            },
+
+            setDisplay: (selector, display) => {
+                const $element = $(selector);
+                if (display === 'show')
+                    return $element.removeClass('hide');
+                return $element.addClass('hide');
             }
         };
         return updateDom;
