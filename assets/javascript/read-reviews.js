@@ -1,36 +1,56 @@
 $(document).ready(function () {
+
+    const $backBtn = $('#back-btn');
+
+    const setBackBtn = function(type, value) {
+        if (type === 'zip') {
+            $backBtn.removeAttr('data-key');
+            $backBtn.attr('data-zip', value);
+        } 
+        else if (type === 'key') {
+            $backBtn.removeAttr('data-zip');
+            $backBtn.attr('data-key', value);
+        }
+    };
     
     const initialLoadSearch = () => {
         const zip = utils.getZipCodeFromWebStorage();
         
-        if ((zip !== null) && (zip !== undefined))
+        if ((zip !== null) && (zip !== undefined)) {
+            $('#z-input').attr('placeholder', zip);
             return listBusinessesByZip(sessionStorage.getItem("zip"));
+        }
         
         // Default to Portsmouth NH
-        if (zip !== undefined)
+        else if (zip !== undefined) {
+            $('#z-input').attr('placeholder', zip);
             sessionStorage.setItem("zip", "03801");
-        
-        listBusinessesByZip('03801');
+            listBusinessesByZip('03801');
+        }
     };
 
     const listBusinessesByZip = function (zip) {
         fbController.getBusinessesByZip(zip)
         .then((fbData) => {
-            if (fbData !== null)
-                return updateDom.renderListOfBusinesses(fbData, utils.toTitleCase)
+            if (fbData !== null)  
+                return updateDom.renderListOfBusinesses(fbData, utils.toTitleCase);
+            sessionStorage.removeItem('recent-business');
             updateDom.renderFirstPuReviewer($(".review-list"));
         })
         .catch((err) => {
             console.error(err);
-            updateDom.warningMessage('#warning', 'Oops! Something went wrong!');
+            warnings.type.dbFetch.set('#warning');
         });
     };
 
-    const searchByZip = function() {
-        const zip = $(".zip-input").val()
+    const searchByZip = function(zipArg) {
+        const zip = zipArg || $(".zip-input").val().trim();
         
         if (utils.isZipCode(zip)) {
+            if (sessionStorage.getItem('recent-business-key'))
+                setBackBtn('key', sessionStorage.getItem('recent-business-key'));
             sessionStorage.setItem("zip", zip);
+            $('#warning').empty();
             $(".title").empty();
             $(".comment-cards").empty();
             $(".review-list").empty();
@@ -38,27 +58,33 @@ $(document).ready(function () {
             return;
         }
         
-        const msg = 'Valid Zip Code Required!!!'
         $('#warning').empty();
-        updateDom.warningMessage('#warning', msg);
-    }
+        warnings.type.invalidZip.set('#warning');
+    };
 
     const openSelectedBusiness = (key) => {
         fbController.getBusinessByKey(key)
             .then((fbData) => {
+                sessionStorage.setItem('recent-business', fbData.business.name)
                 $(".review-list").empty();
-                updateDom.renderTotalRatings('.title', fbData.business)
-                if (fbData.reviews) updateDom.listReviews('.comment-cards', fbData.reviews)
+                setBackBtn('zip', fbData.business.zip);
+                updateDom.setDisplay('#back-btn', 'show');
+                updateDom.renderTotalRatings('.title', fbData.business);
+                if (fbData.reviews) updateDom.listReviews('.comment-cards', fbData.reviews);
+                else updateDom.listReviews('.comment-cards');
             })
             .catch((err) => {
                 console.error('Error retrieving business by key: ', err);
-                updateDom.warningMessage('#warning', 'Oops! Something went wrong!');
+                warnings.type.dbFetch.set('#warning');
             });
-    }
+    };
     
     // CLICK EVENTS
     $("body").on("click", ".business", function() {
-        openSelectedBusiness($(this).attr('data-key'));
+        const key = $(this).attr('data-key')
+        warnings.clearAll('#warning');
+        sessionStorage.setItem('recent-business-key', key);
+        openSelectedBusiness(key);
     });
 
     $("button").on("click", function() {
@@ -66,8 +92,9 @@ $(document).ready(function () {
     });
 
     $('#z-input').on('input', function() {
-        if (utils.isZipCode($('#z-input').val()))
-            $('#warning').empty();
+        if (utils.isZipCode($('#z-input').val())) {
+            warnings.type.invalidZip.clear('#warning');
+        }
     });
 
     $('#z-input').on('keypress', function(event) {
@@ -81,7 +108,15 @@ $(document).ready(function () {
         event.preventDefault();
         sessionStorage.setItem('zip', $(".zip-input").val());
         window.location.href = '/write-review.html';
-    })
+    });
+
+    $backBtn.on('click', function() {
+        updateDom.setDisplay('#back-btn', 'hide');
+        warnings.clearAll('#warning');
+        if ($backBtn.attr('data-zip'))
+            return searchByZip($backBtn.attr('data-zip'));
+        openSelectedBusiness($backBtn.attr('data-key'));
+    });
 
     // Initial Page load methods
     $('.sidenav').sidenav();

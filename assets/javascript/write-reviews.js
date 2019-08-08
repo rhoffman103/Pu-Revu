@@ -78,6 +78,8 @@ $(document).ready(function(){
     });
 
     // INITIAL METHOD CALLS
-    $('#z-input').val(sessionStorage.getItem('zip'))
+    if (sessionStorage.getItem('zip')) $('#z-input').val(sessionStorage.getItem('zip'));
+    if (sessionStorage.getItem('recent-business') != null) $("#business").val(sessionStorage.getItem('recent-business'))
+    
     
 });

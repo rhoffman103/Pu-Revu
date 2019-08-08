@@ -84,14 +84,30 @@
 
             <form>
                 Enter Zip:
-                <input id="z-input" class="zip-input" type="text" value="" placeholder="03801">
-                <br>
-                <button type="button" class="waves-effect waves-light blue darken-2 btn">Search</button>
-                <div class="change-zip valign-wrapper pointer-curser">
-                    <a class="blue-text text-darken-2" id="change-zip">
-                        <i class="material-icons right">my_location</i>Get Zip</a>
-                    </div>
+                <input id="z-input" class="zip-input" type="text" value="" placeholder="">
             </form>
+            <div class="row">
+                <div class="col s6">
+                    <div class="pointer-curser d-inline-block hide" id="back-btn">
+                        <p class="valign-wrapper blue-text text-darken-2">
+                            <i class="material-icons">navigate_before</i>
+                            <span>Back</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="change-zip valign-wrapper pointer-curser right">
+                        <a class="blue-text text-darken-2" id="change-zip">
+                            <i class="material-icons right">my_location</i>
+                            <span>Get Zip</span>
+                        </a>
+                    </div>
+                    <button type="button" class="waves-effect waves-light blue darken-2 btn right">Search</button>
+                </div>
+
+                <div id="town-name" class="text-center"></div>
+
+            </div>
 
             <div class="content">
                 <!-- Display business & total votes -->
@@ -131,6 +147,7 @@
     <script src="assets/javascript/firebase.js"></script>
     <script src="assets/javascript/update-dom.js"></script>
     <script src="assets/javascript/zip.js"></script>
+    <script src="./assets//javascript/warnings.js"></script>
     <script src="assets/javascript/read-reviews.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
