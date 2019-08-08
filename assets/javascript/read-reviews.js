@@ -32,8 +32,9 @@ $(document).ready(function () {
     const listBusinessesByZip = function (zip) {
         fbController.getBusinessesByZip(zip)
         .then((fbData) => {
-            if (fbData !== null)
-                return updateDom.renderListOfBusinesses(fbData, utils.toTitleCase)
+            if (fbData !== null)  
+                return updateDom.renderListOfBusinesses(fbData, utils.toTitleCase);
+            sessionStorage.removeItem('recent-business');
             updateDom.renderFirstPuReviewer($(".review-list"));
         })
         .catch((err) => {
@@ -64,11 +65,13 @@ $(document).ready(function () {
     const openSelectedBusiness = (key) => {
         fbController.getBusinessByKey(key)
             .then((fbData) => {
+                sessionStorage.setItem('recent-business', fbData.business.name)
                 $(".review-list").empty();
                 setBackBtn('zip', fbData.business.zip);
                 updateDom.setDisplay('#back-btn', 'show');
-                updateDom.renderTotalRatings('.title', fbData.business)
-                if (fbData.reviews) updateDom.listReviews('.comment-cards', fbData.reviews)
+                updateDom.renderTotalRatings('.title', fbData.business);
+                if (fbData.reviews) updateDom.listReviews('.comment-cards', fbData.reviews);
+                else updateDom.listReviews('.comment-cards');
             })
             .catch((err) => {
                 console.error('Error retrieving business by key: ', err);
